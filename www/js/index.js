@@ -51,23 +51,26 @@ var app = {
 function login() {
 
     var http = new XMLHttpRequest();
-    var email =  document.getElementById('email');
-    var password = document.getElementById('password');
-    const url = 'http://10.250.6.203:8080/login?email=' + email + '&password=' + password;
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
+    const url = 'http://192.168.0.107:8080/login?email=' + email + '&password=' + password;
+
+    http.onreadystatechange = (e) => {
+        var response = http.responseText;
+        var responseJSON = JSON.parse(response);
+        console.log(responseJSON);
+        var em = responseJSON.email;
+        var pa = responseJSON.password;
+        if (em == email && pa == password){
+            location = "john.html";
+        } 
+    
+    }
+
     http.open("GET", url);
-    console.log(http);
     http.send();
 
-    // http.onreadystatechange = (e) => {
-    //     var response = http.responseText;
-    //     var responseJSON = JSON.parse(response);
+   
 
-    //     console.log(responseJSON);
-    //     var email = responseJSON.results[0].components.email;
-    //     document.getElementById("email").innerHTML = email;
-    //     document.getElementById("password").innerHTML = password;
-        
-    // }
-    
 }
 
